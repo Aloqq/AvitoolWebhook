@@ -15,9 +15,10 @@ public class WebhookProperties {
     private String token = "";
 
     /**
-     * If false, every accepted webhook may trigger Telegram (no duplicate suppression).
+     * If false (default), every accepted POST may trigger Telegram. Set true to suppress repeats
+     * for the same event + message + account within deduplicationWindowSeconds.
      */
-    private boolean deduplicationEnabled = true;
+    private boolean deduplicationEnabled = false;
 
     /**
      * Suppress Telegram for same event + message + account within this many seconds after last successful send.
