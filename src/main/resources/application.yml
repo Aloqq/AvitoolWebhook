@@ -18,6 +18,9 @@ logging:
 # Файл .env Spring сам не читает; задайте env в Docker/systemd/IDE или используйте литералы в application-secrets.yml.
 webhook:
   token: ${WEBHOOK_TOKEN:}
+  # Одинаковые event+message+account не шлются в Telegram повторно в течение окна (см. DeduplicationService).
+  deduplication-enabled: true
+  deduplication-window-seconds: 60
 
 telegram:
   bot-token: ${TELEGRAM_BOT_TOKEN:}

@@ -12,7 +12,7 @@
 |--------|----------|
 | **POST /webhook** | JSON payload, заголовок `Authorization: Bearer …`, коды **200 / 400 / 403 / 415** |
 | **Telegram** | `sendMessage`, несколько получателей (`chat-id` + `notify-chat-ids`) |
-| **Дедупликация** | Одинаковые `event` + `message` + `account` не дублируются в Telegram **60 с** после успешной отправки |
+| **Дедупликация** | Одинаковые `event` + `message` + `account` не дублируются в Telegram в течение окна (**60 с** по умолчанию); для тестов подряд — `webhook.deduplication-enabled: false` в `application-secrets.yml` |
 | **Асинхронность** | Ответ **200** сразу после валидации; Telegram и запись в лог — в фоне (`@Async`) |
 | **Логи** | `logs/webhook.log` — одна JSON-строка на запись (без секретов в логе) |
 | **Опционально** | `telegram.test-mode` + опрос `getUpdates` и файл `logs/telegram_test_chats.json` |
