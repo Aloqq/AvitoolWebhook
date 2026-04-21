@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: webhook-avitool
+  # Доп. настройки (списки chat_id, test-mode и т.д.) — в config/application-secrets.yml
+  config:
+    import: optional:file:./config/application-secrets.yml
+
+server:
+  port: 3000
+
+logging:
+  level:
+    # Меньше шума от посторонних TCP (не-HTTP) на открытый порт
+    org.apache.coyote.http11.Http11Processor: WARN
+
+# Секреты по умолчанию берутся из переменных окружения — дублировать их в YAML не нужно.
+# Имена: WEBHOOK_TOKEN, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+# Файл .env Spring сам не читает; задайте env в Docker/systemd/IDE или используйте литералы в application-secrets.yml.
+webhook:
+  token: ${WEBHOOK_TOKEN:}
+
+telegram:
+  bot-token: ${TELEGRAM_BOT_TOKEN:}
+  chat-id: ${TELEGRAM_CHAT_ID:}
+  notify-chat-ids: []
+  test-mode: false
+  test-collect-interval-ms: 60000

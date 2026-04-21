@@ -1,0 +1,28 @@
+{
+    "info": {
+      "name": "Webhook Avitool",
+      "description": "Перед Send: в Variables задайте webhookToken = WEBHOOK_TOKEN (ASCII, без Bearer).\nbaseUrl без слэша в конце: http://localhost:3000 — иначе получится //webhook и 404.\nContent-Type: application/json. 200 — {\"ok\":true,...}; 403 — токен; 415 — нет JSON Content-Type.",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+      { "key": "baseUrl", "value": "http://localhost:3000" },
+      { "key": "webhookToken", "value": "" }
+    ],
+    "item": [
+      {
+        "name": "POST /webhook",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "Authorization", "value": "Bearer {{webhookToken}}" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"event_id\": \"test-001\",\n  \"event\": \"PUBLISH_ERROR\",\n  \"level\": \"error\",\n  \"status\": \"failed\",\n  \"message\": \"Тест из Postman\",\n  \"error_code\": \"TEST\",\n  \"account\": \"acc_demo\",\n  \"task_id\": 1,\n  \"project\": \"avito_main\",\n  \"host\": \"127.0.0.1\",\n  \"timestamp\": \"2026-04-21T12:00:00Z\",\n  \"meta\": {}\n}"
+          },
+          "url": "{{baseUrl}}/webhook"
+        }
+      }
+    ]
+  }
